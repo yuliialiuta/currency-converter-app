@@ -1,0 +1,12 @@
+.header .text {
+  margin: 30px 0 0;
+}
+
+.header .current-amount {
+  font-size: 40px;
+  margin: 5px 0 0;
+}
+
+.header .current-date {
+  margin: 10px 0 0;
+}

@@ -1,6 +1,7 @@
 /* You can add global styles to this file, and also import other style files */
 * {
   font-family: "Open Sans", sans-serif;
+  letter-spacing: 0.5px;
 }
 
 body {
