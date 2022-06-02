@@ -10,10 +10,20 @@ export class HeaderComponent implements OnInit {
   header: Header = {
     text: '1 Українська гривна дорівнює',
     currency: '0,032 Євро',
-    date: '1 червня,',
-    time: '12.54 UTC',
   };
 
+  getCurrentDateTime(): string {
+    const currentDate = new Date();
+    const options: Intl.DateTimeFormatOptions = {
+      day: 'numeric',
+      month: 'long',
+      hour: '2-digit',
+      minute: '2-digit',
+      timeZoneName: 'short',
+    };
+
+    return currentDate.toLocaleString('uk', options);
+  }
   constructor() {}
 
   ngOnInit(): void {}
