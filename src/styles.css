@@ -5,9 +5,10 @@
 }
 
 body {
-  margin: 20px;
+  margin: 20px auto;
   text-align: center;
   border: 2px solid lightgray;
-  border-radius: 10px;
+  border-radius: 5px;
   max-width: 600px;
+  box-shadow: 10px 10px 15px lightgrey;
 }

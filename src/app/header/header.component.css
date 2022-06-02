@@ -5,6 +5,7 @@
 .header .current-amount {
   font-size: 40px;
   margin: 5px 0 0;
+  color: rgb(70, 68, 68);
 }
 
 .header .current-date {
