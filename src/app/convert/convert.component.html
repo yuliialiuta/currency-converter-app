@@ -1,17 +1,43 @@
 <div class="convert-form">
   <form class="form-from">
-    <input id="from" type="number" class="form-control from" />
+    <input
+      id="from"
+      type="number"
+      class="form-control from"
+      name="valueFrom"
+      min="0"
+      [disabled]="isNotLoaded"
+      [(ngModel)]="valueFrom"
+      (ngModelChange)="onInputFromChanged($event)"
+    />
     <select
       name="from-currency"
       class="currency from"
+      [disabled]="isNotLoaded"
       [(ngModel)]="selectedFrom"
+      (ngModelChange)="onSelectFromChanged($event)"
     >
       <option *ngFor="let n of currency">{{ n }}</option>
     </select>
   </form>
   <form class="form-to">
-    <input id="to" type="number" class="form-control to" />
-    <select name="to-currency" class="currency to" [(ngModel)]="selectedTo">
+    <input
+      id="to"
+      type="number"
+      class="form-control to"
+      name="valueTo"
+      min="0"
+      [disabled]="isNotLoaded"
+      [(ngModel)]="valueTo"
+      (ngModelChange)="onInputToChanged($event)"
+    />
+    <select
+      name="to-currency"
+      class="currency to"
+      [disabled]="isNotLoaded"
+      [(ngModel)]="selectedTo"
+      (ngModelChange)="onSelectToChanged($event)"
+    >
       <option *ngFor="let n of currency">{{ n }}</option>
     </select>
   </form>
