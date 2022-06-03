@@ -21,6 +21,7 @@ export class ConvertComponent {
   currencyData?: CurrencyData;
 
   isNotLoaded: boolean = true;
+  currenciesRatio: number = 1;
 
   constructor(
     private currencyService: CurrencyService,
@@ -31,9 +32,12 @@ export class ConvertComponent {
     this.currencyService
       .getCurrencyData()
       .subscribe((currencyData: CurrencyData) => {
-        console.log('Convert is loaded!');
-        this.isNotLoaded = false;
         this.currencyData = currencyData;
+
+        this.updateCurrenciesRatio();
+        this.emitSelectedCurrencies();
+
+        this.isNotLoaded = false;
       });
   }
 
@@ -41,23 +45,27 @@ export class ConvertComponent {
     const data: AppServiceData = {
       currencyFrom: this.selectedFrom,
       currencyTo: this.selectedTo,
+      ratio: this.currenciesRatio,
     };
     this.appService.emitSelectedCurrencies(data);
   }
 
   onSelectFromChanged(_currency: string): void {
+    this.updateCurrenciesRatio();
     this.emitSelectedCurrencies();
-    this.valueTo = this.valueFrom * this.calculateRatio();
+    this.valueTo = this.valueFrom * this.currenciesRatio;
   }
 
   onSelectToChanged(_currency: string): void {
+    this.updateCurrenciesRatio();
     this.emitSelectedCurrencies();
-    this.valueFrom = this.valueTo / this.calculateRatio();
+    this.valueFrom = this.valueTo / this.currenciesRatio;
   }
 
-  calculateRatio(): number {
+  updateCurrenciesRatio(): void {
     if (this.currencyData === undefined) {
-      return 1;
+      this.currenciesRatio = 1;
+      return;
     }
 
     const selectedCurrencyFrom = this.currencyData.exchangeRate.find(
@@ -72,17 +80,19 @@ export class ConvertComponent {
       selectedCurrencyFrom === undefined ||
       selectedCurrencyTo === undefined
     ) {
-      return 1;
+      this.currenciesRatio = 1;
+      return;
     }
 
-    return selectedCurrencyFrom.saleRateNB / selectedCurrencyTo.saleRateNB;
+    this.currenciesRatio =
+      selectedCurrencyFrom.saleRateNB / selectedCurrencyTo.saleRateNB;
   }
 
   onInputFromChanged(_value: Event): void {
-    this.valueTo = this.valueFrom * this.calculateRatio();
+    this.valueTo = this.valueFrom * this.currenciesRatio;
   }
 
   onInputToChanged(_value: Event): void {
-    this.valueFrom = this.valueTo / this.calculateRatio();
+    this.valueFrom = this.valueTo / this.currenciesRatio;
   }
 }

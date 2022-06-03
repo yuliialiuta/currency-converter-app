@@ -4,6 +4,7 @@ import { Subject } from 'rxjs';
 interface AppServiceData {
   currencyFrom: string;
   currencyTo: string;
+  ratio: number;
 }
 
 @Injectable({
